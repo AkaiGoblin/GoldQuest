@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Commands
 {
-	public class IdleCommand : Command
+	public class JumpCommand : Command
 	{
-		public IdleCommand(Ninja ninjaPlayer) : base(ninjaPlayer) { }
+		public JumpCommand(Ninja ninjaPlayer) : base(ninjaPlayer) { }
 		protected override bool MoveInDirection()
 		{
-			_ninjaPlayer.Idle();
+			_ninjaPlayer.Jump();
 			return true;
 		}
 	}

@@ -1,59 +1,86 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using Assets.Scripts.States;
 using UnityEngine;
 
 public class Ninja : MonoBehaviour
 {
+	#region Delegates
+	public delegate void PlayerStateChangeHandler(PlayerState newState);
+	#endregion
+
 	#region Game Variable
 	[SerializeField]
-	private float _speed = 5f;
+	public float Speed = 5f;
+	[SerializeField]
+	public float JumpSpeed = 10f;
+	[NonSerialized]
+	public float SpeedModifier = 1f;
 	#endregion
 
 	#region Fields
 	private Animator _animator;
-	private Transform _transform;
+	private SpriteRenderer _spriteRenderer;
+	private Rigidbody2D _rigidBody2D;
+	private CapsuleCollider2D _capsuleCollider;
 	#endregion
 
-	private void Start()
+	#region Non Serialized Properties
+	[NonSerialized]
+	public PlayerState CurrentState;
+	public string PlayerCurrentState;
+	[NonSerialized]
+	public PlayerStateChangeHandler StateChangeDelegate;
+	#endregion
+
+
+	private void Awake()
 	{
-		_animator = gameObject.GetComponent<Animator>();
-		_transform = gameObject.GetComponent<Transform>();
+		_animator = gameObject.GetComponent<Animator>();		
+		_rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
+		_spriteRenderer = gameObject.GetComponent<SpriteRenderer>();		
+		_capsuleCollider = gameObject.GetComponent<CapsuleCollider2D>();
+		CurrentState = new NormalState(this, _animator, _spriteRenderer, _rigidBody2D, _capsuleCollider);
+		StateChangeDelegate = new PlayerStateChangeHandler(PlayerStateChanged);
+	}
+	private void Update()
+	{
+		PlayerCurrentState = CurrentState.ToString();
 	}
 
 	#region Movement Methods
 
 	public void MoveRight()
 	{
-		_transform.position = _transform.position + Move(Vector3.right);
+		CurrentState.MoveRight();
 	}
 
 	public void MoveLeft()
 	{
-		_transform.position = _transform.position + Move(Vector3.left);
+		CurrentState.MoveLeft();		
 	}
 
 	public void Jump()
 	{
-
+		CurrentState.Jump();
 	}
 
 	public void Crouch()
 	{
-
+		CurrentState.Crouch();
 	}
 
-	public void Slide()
+	public void Idle()
 	{
-
+		CurrentState.Idle();
 	}
-
-	private Vector3 Move(Vector3 direction)
-	{
-		return _speed * Time.deltaTime * direction;
-	}
-
 
 	#endregion
 
+	private void PlayerStateChanged(PlayerState newState)
+	{
+		CurrentState = newState;
+	}
 
 }
