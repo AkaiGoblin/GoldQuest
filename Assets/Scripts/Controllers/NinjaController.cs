@@ -35,6 +35,7 @@ public class NinjaController : MonoBehaviour
 
 	private void ProcessCrouchInput()
 	{
+        if (_ninjaPlayer.CurrentState is JumpingState) return;
 		if (Input.GetButton("Crouch") || Input.GetButtonDown("Crouch"))
 		{
             _currentNinjaState = _ninjaPlayer.CurrentState;
@@ -49,7 +50,7 @@ public class NinjaController : MonoBehaviour
 		else
 		{
             _crouch = false;
-		}
+        }
 	}
 
 	private void ProcessJumpInput()

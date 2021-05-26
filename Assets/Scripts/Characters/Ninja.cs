@@ -15,6 +15,8 @@ public class Ninja : MonoBehaviour
 	public float Speed = 5f;
 	[SerializeField]
 	public float JumpSpeed = 10f;
+	[SerializeField]
+	public float SlideTimer = 2.5f;
 	[NonSerialized]
 	public float SpeedModifier = 1f;
 	#endregion

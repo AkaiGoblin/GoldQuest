@@ -67,12 +67,16 @@ namespace Assets.Scripts.States
 			{
 				_ninjaAnimator.SetBool("IsCrouching", false);
 				ChangeColliderType(ColliderTypeEnum.Standing);
-				_ninjaPlayer.StateChangeDelegate(new NormalState(
+				if (!(_ninjaPlayer.CurrentState is NormalState))
+				{
+					_ninjaPlayer.StateChangeDelegate(new NormalState(
 					_ninjaPlayer,
 					_ninjaAnimator,
 					_spriteRenderer,
 					_rigidBody2D,
 					_collider2D));
+				}
+				
 
 			}			
 		}
@@ -106,7 +110,6 @@ namespace Assets.Scripts.States
 			{
 				return "JumpingState";
 			}
-
 			return "Nothing";
 		}
 
