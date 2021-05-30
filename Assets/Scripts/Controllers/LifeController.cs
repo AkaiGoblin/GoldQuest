@@ -32,9 +32,17 @@ public class LifeController : MonoBehaviour
 	private void PlayerIsHit(int currentLife)
 	{
 		var addOrRemoveHeart = _hearts.Count - currentLife;
+		if (addOrRemoveHeart >= 1)
+		{
+			var index = _hearts.Count - 1;
+			var lossedHeart = _hearts[index];
+			_hearts.RemoveAt(index);
+			Destroy(lossedHeart);
+		}
+
 		if (addOrRemoveHeart < 1)
 		{
-			Destroy(_hearts[_hearts.Count - 1]);
+			CreateHeartImages(1);
 		}
 	}
 
@@ -46,16 +54,28 @@ public class LifeController : MonoBehaviour
 
 	private void CreateHeartImages(int numberOfHearts)
 	{
-		for (int i = 0; i < numberOfHearts; i++)
+		if (_hearts.Count == 0 || _hearts == null)
 		{
-			var position = i * 100 + 2;
-
-			var test = Instantiate<GameObject>(_heartPrefab, this.transform.position, Quaternion.identity, this.transform);
-			//var test = Instantiate<GameObject>(_heartPrefab);
-			((RectTransform)test.transform).anchoredPosition = new Vector2(_defaultHeartPosition.x + position, _defaultHeartPosition.y);
-
+			for (int i = 0; i < numberOfHearts; i++)
+			{
+				var position = i * 90;
+				var heart = InstantiateHeartImage(position);
+				_hearts.Add(heart);
+			}
+		}
+		else
+		{
+			var position = _hearts.Count * 90;
+			var heart = InstantiateHeartImage(position);
+			_hearts.Add(heart);
+		}
 			
-		}		
+	}
+	private GameObject InstantiateHeartImage(int position)
+	{
+		var heart = Instantiate<GameObject>(_heartPrefab, this.transform.position, Quaternion.identity, this.transform);
+		((RectTransform)heart.transform).anchoredPosition = new Vector2(_defaultHeartPosition.x + position, _defaultHeartPosition.y);
+		return heart;
 	}
 
 	private void OnDestroy()

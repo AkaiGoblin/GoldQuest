@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
 	public void PlayerGetsHit(int heart)
 	{
-		_playerLife += heart;
+		_playerLife -= heart;
 		OnLifeChanged();
 	}
 

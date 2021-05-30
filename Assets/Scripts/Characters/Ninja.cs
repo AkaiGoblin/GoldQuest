@@ -102,6 +102,7 @@ public class Ninja : MonoBehaviour
 	private void PlayerLooseLife(int hitPoint)
 	{
 		Life -= hitPoint;
+		_gameManager.PlayerGetsHit(hitPoint);
 	}
 
 }
