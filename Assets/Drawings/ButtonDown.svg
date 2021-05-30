@@ -27,12 +27,12 @@
      inkscape:cx="164.38453"
      inkscape:cy="-32.973247"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer4"
      inkscape:document-rotation="0"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="2552"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -53,16 +53,16 @@
   </metadata>
   <g
      inkscape:groupmode="layer"
-     id="layer2"
-     inkscape:label="Button"
-     transform="translate(-50,-78.459969)"
+     id="layer4"
+     inkscape:label="ButtonDown"
      style="display:inline">
     <g
-       id="g845"
-       transform="translate(0,12.170835)">
+       id="g845-8"
+       transform="translate(-50,-66.289134)"
+       style="display:inline">
       <rect
          style="fill:#b70000;fill-opacity:1;stroke-width:0.782306;paint-order:markers stroke fill"
-         id="rect836"
+         id="rect836-1"
          width="40"
          height="7.9564981"
          x="70"
@@ -70,19 +70,13 @@
          rx="0"
          ry="1.0229765" />
     </g>
-  </g>
-  <g
-     inkscape:label="Base"
-     inkscape:groupmode="layer"
-     id="layer1"
-     transform="translate(-50,-78.459969)"
-     style="display:inline">
     <g
-       id="g842"
-       transform="translate(0,12.170835)">
+       id="g842-6"
+       transform="translate(-50,-66.289134)"
+       style="display:inline">
       <rect
          style="fill:#666666;stroke-width:1.35138;paint-order:markers stroke fill"
-         id="rect834"
+         id="rect834-8"
          width="80"
          height="8"
          x="50"

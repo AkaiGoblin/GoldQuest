@@ -6,6 +6,14 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
+	#region Delegates
+	public delegate void PlayerIsHitHandler(int hitPoint);
+	#endregion
+
+	#region Events
+	public event PlayerIsHitHandler PlayerIsHit;
+	#endregion
+
 	private Ninja _ninjaPlayer;
 	private SpriteRenderer _spriteRenderer;
 	private Animator _ninjaAnimator;
@@ -24,6 +32,18 @@ public class CollisionController : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
 		GroundCollisionCheck(collision);
+	}
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		SpikeCollisionCheck(collision);
+	}
+
+	private void SpikeCollisionCheck(Collider2D collision)
+	{
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Spike"))
+		{
+			PlayerIsHit(1);
+		}
 	}
 
 	private void GroundCollisionCheck(Collision2D collision)

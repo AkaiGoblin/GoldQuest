@@ -26,7 +26,7 @@ public class NinjaController : MonoBehaviour
 	{
         ProcessHorizontalInput();
         ProcessJumpInput();
-        ProcessCrouchInput();        
+        ProcessCrouchInput();
 
         var nextMove = _commandFactory.GetCommand(_horizontalInput, _jump, _crouch);
         nextMove.Execute();
