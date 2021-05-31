@@ -68,4 +68,5 @@ public class GameManager : MonoBehaviour
 			ScoreChanged(_playerWallet);
 		}
 	}
+
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Factories;
 using Assets.Scripts.States;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ public class CollisionController : MonoBehaviour
 	private Animator _ninjaAnimator;
 	private Rigidbody2D _rigidBody2D;
 	private CapsuleCollider2D _capsuleCollider;
+	private PlayerStateFactory _stateFactory;
 
 	private void Awake()
 	{
@@ -27,6 +29,7 @@ public class CollisionController : MonoBehaviour
 		_ninjaAnimator = gameObject.GetComponent<Animator>();
 		_rigidBody2D = gameObject.GetComponent<Rigidbody2D>();
 		_capsuleCollider = gameObject.GetComponent<CapsuleCollider2D>();
+		_stateFactory = PlayerStateFactory.GetInstance();
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -52,12 +55,9 @@ public class CollisionController : MonoBehaviour
 			_ninjaPlayer.CurrentState is JumpingState)
 		{
 			_ninjaAnimator.SetBool("IsJumping", false);
-			_ninjaPlayer.StateChangeDelegate(new NormalState(
-				_ninjaPlayer,
-				_ninjaAnimator,
-				_spriteRenderer,
-				_rigidBody2D,
-				_capsuleCollider));
+			_ninjaPlayer.StateChangeDelegate(
+				_stateFactory.CreatePlayerState(PlayerStateType.Normal)
+				);
 		}
 	}
 }

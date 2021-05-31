@@ -27,12 +27,7 @@ namespace Assets.Scripts.States
 			}
 			_ninjaAnimator.SetBool("IsCrouching", true);
 			ChangeColliderType(ColliderTypeEnum.Crouch);
-			_ninjaPlayer.StateChangeDelegate(new CrouchingState(
-				_ninjaPlayer,
-				_ninjaAnimator,
-				_spriteRenderer,
-				_rigidBody2D,
-				_collider2D));
+			_ninjaPlayer.StateChangeDelegate(_stateFactory.CreatePlayerState(PlayerStateType.Crouching));
 		}
 
 		public override void Idle()
@@ -52,7 +47,7 @@ namespace Assets.Scripts.States
 			//_rigidBody2D.velocity = Vector2.up * _jumpSpeed;
 			_rigidBody2D.AddForce(Vector2.up * _ninjaPlayer.JumpSpeed, ForceMode2D.Impulse);
 			_ninjaAnimator.SetBool("IsJumping", true);
-			OnPlayerStateChanged(new JumpingState(_ninjaPlayer, _ninjaAnimator, _spriteRenderer, _rigidBody2D, _collider2D));
+			OnPlayerStateChanged(_stateFactory.CreatePlayerState(PlayerStateType.Jumping));			
 		}
 
 		public override void MoveLeft()
