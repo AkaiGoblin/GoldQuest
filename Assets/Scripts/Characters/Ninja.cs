@@ -10,10 +10,12 @@ public class Ninja : MonoBehaviour
 	#region Delegates
 	public delegate void PlayerStateChangeHandler(PlayerState newState);
 	public delegate void PlayerDeathHandler();
+	public delegate void GameObjectDestroyedHandler();
 	#endregion
 
 	#region Events
 	public event PlayerDeathHandler PlayerIsDead;
+	public event GameObjectDestroyedHandler GameObjectDestroyed;
 	#endregion
 
 	#region Game Variable
@@ -32,6 +34,8 @@ public class Ninja : MonoBehaviour
 	private CollisionController _collisionController;
 	private GameManager _gameManager;
 	private PlayerStateFactory _stateFactory;
+	private GameObject _spawnPoint;
+	private LevelController _levelManager;
 	#endregion
 
 	#region Non Serialized Properties
@@ -53,6 +57,8 @@ public class Ninja : MonoBehaviour
 		_collisionController = gameObject.GetComponent<CollisionController>();
 		_gameManager = FindObjectOfType<GameManager>();
 		_stateFactory = PlayerStateFactory.GetInstance();
+		_spawnPoint = GameObject.FindGameObjectWithTag("Respawn");
+		_levelManager = GameObject.FindObjectOfType<LevelController>();
 
 		//Assignation		
 		CurrentState = _stateFactory.CreatePlayerState(PlayerStateType.Normal);
@@ -60,40 +66,54 @@ public class Ninja : MonoBehaviour
 		_collisionController.PlayerIsHit += PlayerLooseLife;
 		_gameManager.PlayerLife = Life;
 		PlayerIsDead += PlayerDies;
+		_levelManager.LevelFinished += LevelFinished;
+	}
+	private void Start()
+	{
+		
+		gameObject.transform.position = _spawnPoint.transform.position;
+		
 	}
 	private void Update()
 	{
 		PlayerCurrentState = CurrentState.ToString();
 	}
-	private void Start()
-	{
-
-	}
+	
 
 	#region Movement Methods
 
 	public void MoveRight()
 	{
+		if (CurrentState == null)
+			return;
 		CurrentState.MoveRight();
 	}
 
 	public void MoveLeft()
 	{
+		if (CurrentState == null)
+			return;
 		CurrentState.MoveLeft();
 	}
 
 	public void Jump()
 	{
+		if (CurrentState == null)
+			return;
 		CurrentState.Jump();
 	}
 
 	public void Crouch()
 	{
+		if (CurrentState == null)
+			return;
 		CurrentState.Crouch();
 	}
 
 	public void Idle()
 	{
+		if (CurrentState == null)
+			return;
 		CurrentState.Idle();
 	}
 
@@ -174,10 +194,16 @@ public class Ninja : MonoBehaviour
 		Destroy(gameObject);
 	}
 
+	private void LevelFinished(string name = null)
+	{
+		Destroy(gameObject);
+	}
+
 	private void OnDestroy()
 	{
 		_collisionController.PlayerIsHit -= PlayerLooseLife;
 		PlayerIsDead -= PlayerDies;
+		_levelManager.LevelFinished -= LevelFinished;
 	}
 
 }

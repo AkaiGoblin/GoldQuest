@@ -12,8 +12,7 @@ public class LifeController : MonoBehaviour
 	[SerializeField]
 	private Vector3 _defaultHeartPosition;
 	[SerializeField]
-	private RectTransform _defaultTest;
-	public string hello;
+	private int _separationDistance;
 	#endregion
 
 	private List<GameObject> _hearts = new List<GameObject>();
@@ -58,14 +57,14 @@ public class LifeController : MonoBehaviour
 		{
 			for (int i = 0; i < numberOfHearts; i++)
 			{
-				var position = i * 90;
+				var position = i * _separationDistance;
 				var heart = InstantiateHeartImage(position);
 				_hearts.Add(heart);
 			}
 		}
 		else
 		{
-			var position = _hearts.Count * 90;
+			var position = _hearts.Count * _separationDistance;
 			var heart = InstantiateHeartImage(position);
 			_hearts.Add(heart);
 		}

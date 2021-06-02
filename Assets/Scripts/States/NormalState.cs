@@ -32,6 +32,8 @@ namespace Assets.Scripts.States
 
 		public override void Idle()
 		{
+			if (_spriteRenderer == null || _ninjaAnimator == null || _ninjaPlayer == null)
+				return;
 			_isRunning = false;
 			_isSlidding = false;
 			_slideTime = 0f;
@@ -43,6 +45,8 @@ namespace Assets.Scripts.States
 
 		public override void Jump()
 		{
+			if (_spriteRenderer == null || _ninjaAnimator == null || _ninjaPlayer == null)
+				return;
 			//TODO => improve jumping mechanic
 			//_rigidBody2D.velocity = Vector2.up * _jumpSpeed;
 			_rigidBody2D.AddForce(Vector2.up * _ninjaPlayer.JumpSpeed, ForceMode2D.Impulse);
@@ -52,6 +56,8 @@ namespace Assets.Scripts.States
 
 		public override void MoveLeft()
 		{
+			if (_spriteRenderer == null || _ninjaAnimator == null || _ninjaPlayer == null)
+				return;
 			_isRunning = true;
 			_rightDirection = false;
 			_spriteRenderer.flipX = true; //TODO: change the minus local scale X
@@ -62,6 +68,8 @@ namespace Assets.Scripts.States
 
 		public override void MoveRight()
 		{
+			if(_spriteRenderer == null || _ninjaAnimator == null || _ninjaPlayer == null)
+				return;
 			_isRunning = true;
 			_rightDirection = true;
 			_spriteRenderer.flipX = false; //TODO: change the minus local scale X
@@ -72,7 +80,9 @@ namespace Assets.Scripts.States
 
 		protected override void Slide()
 		{
-			
+			if (_spriteRenderer == null || _ninjaAnimator == null || _ninjaPlayer == null)
+				return;
+
 			while (_slideTime <= _ninjaPlayer.SlideTimer)
 			{
 				_ninjaAnimator.SetBool("IsCrouching", true);				

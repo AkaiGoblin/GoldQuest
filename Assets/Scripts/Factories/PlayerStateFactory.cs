@@ -16,7 +16,24 @@ namespace Assets.Scripts.Factories
 
 		public static PlayerStateFactory GetInstance()
 		{
-			return _playerStateFactory.Value;
+			var instance = _playerStateFactory.Value;
+
+			if (instance._ninjaPlayer == null)
+			{
+				GetComponents();
+			}
+
+
+			return instance;
+		}
+
+		private static void GetComponents()
+		{
+			_playerStateFactory.Value._ninjaPlayer = GameObject.FindObjectOfType<Ninja>();
+			_playerStateFactory.Value._animator = _playerStateFactory.Value._ninjaPlayer.gameObject.GetComponent<Animator>();
+			_playerStateFactory.Value._spriteRenderer = _playerStateFactory.Value._ninjaPlayer.gameObject.GetComponent<SpriteRenderer>();
+			_playerStateFactory.Value._rigidBody2D = _playerStateFactory.Value._ninjaPlayer.gameObject.GetComponent<Rigidbody2D>();
+			_playerStateFactory.Value._collider2D = _playerStateFactory.Value._ninjaPlayer.gameObject.GetComponent<CapsuleCollider2D>();
 		}
 
 		private PlayerStateFactory()

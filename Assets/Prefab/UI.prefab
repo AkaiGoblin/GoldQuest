@@ -39,6 +39,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 67020551856306241}
     m_Modifications:
+    - target: {fileID: 2899872726068066720, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899872726068066721, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899872726068066723, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
+      propertyPath: _separationDistance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899872726068066723, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
+      propertyPath: _defaultHeartPosition.x
+      value: -360
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899872726068066723, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
+      propertyPath: _defaultHeartPosition.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 2899872726068066724, guid: f4b5bc8a8d9b3dc45b41be3f962f20ec, type: 3}
       propertyPath: m_Name
       value: Life
@@ -142,6 +162,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 67020551856306241}
     m_Modifications:
     - target: {fileID: 4415889406094862990, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406094862990, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406094862990, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 405
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406094862990, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -229,9 +261,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4415889406699016721, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406699016722, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4415889406699016724, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
       propertyPath: m_Name
       value: Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406728084325, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406728084325, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406728084325, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -357
+      objectReference: {fileID: 0}
+    - target: {fileID: 4415889406728084325, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 206
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57dc5b698dbd16047b7ab2b766f60237, type: 3}

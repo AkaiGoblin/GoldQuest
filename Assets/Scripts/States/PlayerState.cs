@@ -31,6 +31,10 @@ namespace Assets.Scripts.States
 			Rigidbody2D rigidBody2D,
 			Collider2D collider2D)
 		{
+			if (ninjaPlayer == null)
+			{
+				return;
+			}
 			_ninjaPlayer = ninjaPlayer;
 			_ninjaAnimator = ninjaAnimator;
 			_spriteRenderer = spriteRenderer;
@@ -41,6 +45,7 @@ namespace Assets.Scripts.States
 				);
 			StoppedCrouchingDelegate = new StoppedCrouchingHandler(StoppedCrouching);
 			_stateFactory = PlayerStateFactory.GetInstance();
+
 		}
 
 		#region Abstract Methods
