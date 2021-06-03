@@ -189,9 +189,11 @@ public class Ninja : MonoBehaviour
 		
 	}
 
-	private void PlayerDies()
+	public void PlayerDies()
 	{
 		Destroy(gameObject);
+		PlayerIsDead();
+		
 	}
 
 	private void LevelFinished(string name = null)

@@ -39,6 +39,7 @@ public class CollisionController : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		SpikeCollisionCheck(collision);
+		FireballCollisionCheck(collision);
 	}
 
 	private void SpikeCollisionCheck(Collider2D collision)
@@ -46,6 +47,14 @@ public class CollisionController : MonoBehaviour
 		if (collision.gameObject.layer == LayerMask.NameToLayer("Spike"))
 		{
 			PlayerIsHit(1);
+		}
+	}
+
+	private void FireballCollisionCheck(Collider2D collision)
+	{
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Fireball"))
+		{
+			_ninjaPlayer.PlayerDies();
 		}
 	}
 

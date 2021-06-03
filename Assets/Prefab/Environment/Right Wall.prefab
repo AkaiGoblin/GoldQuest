@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3521898064166960215}
   - component: {fileID: 3521898064166960212}
   - component: {fileID: 3521898064166960213}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ MonoBehaviour:
   - {x: -0.54217243, y: 0.5108534, z: 0}
   m_ShapePathHash: -505260323
   m_Mesh: {fileID: 0}
-  m_InstanceId: 28584
+  m_InstanceId: 42360
 --- !u!61 &3521898064166960213
 BoxCollider2D:
   m_ObjectHideFlags: 0

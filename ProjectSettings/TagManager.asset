@@ -16,8 +16,8 @@ TagManager:
   - Spike
   - Lights
   - Coin
-  - 
-  - 
+  - GoldStack
+  - Fireball
   - 
   - 
   - 
@@ -50,6 +50,9 @@ TagManager:
     locked: 0
   - name: Button
     uniqueID: 2786348737
+    locked: 0
+  - name: GoldStack
+    uniqueID: 2260705887
     locked: 0
   - name: Coin
     uniqueID: 3332101937

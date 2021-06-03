@@ -25,7 +25,7 @@ public class ButtonController : MonoBehaviour
 	{
 		if (collision.gameObject.GetComponent<Ninja>() != null)
 		{
-			_animator.SetTrigger("ButtonPushed");
+			_animator.SetBool("ButtonPushed", true);
 		}
 	}
 
@@ -33,7 +33,7 @@ public class ButtonController : MonoBehaviour
 	{
 		if (collision.gameObject.GetComponent<Ninja>() != null)
 		{
-			_animator.SetTrigger("ButtonPushed");
+			_animator.SetBool("ButtonPushed", true);
 			OnButtonPushed();
 		}		
 	}
@@ -44,5 +44,10 @@ public class ButtonController : MonoBehaviour
 		{
 			ButtonPushed();
 		}
+	}
+
+	public void ButtonReset()
+	{
+		_animator.SetBool("ButtonPushed", false);
 	}
 }
