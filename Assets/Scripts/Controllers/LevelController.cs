@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour
 {
 	#region Delegates
-	public delegate void LevelFinishedHandler(string sceneName = null);
+	public delegate void LevelFinishedHandler(Scene activeScene, bool isDead);
 	#endregion
 
 	#region Events
@@ -15,18 +16,20 @@ public class LevelController : MonoBehaviour
 	private GameManager _gameManager;
 	private void Awake()
 	{
-		_gameManager = GameObject.FindObjectOfType<GameManager>();	
+		//_gameManager = GameObject.FindObjectOfType<GameManager>();	
+		
 	}
 
 	private void Start()
 	{
+		_gameManager = GameManager.instance;
 		LevelFinished += _gameManager.LevelFinished;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		Destroy(collision.gameObject);
-		LevelFinished();
+		LevelFinished(SceneManager.GetActiveScene(), false);
 	}
 
 	private void OnDestroy()

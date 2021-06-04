@@ -4,6 +4,7 @@ using System;
 using Assets.Scripts.States;
 using UnityEngine;
 using Assets.Scripts.Factories;
+using UnityEngine.SceneManagement;
 
 public class Ninja : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class Ninja : MonoBehaviour
 	private PlayerStateFactory _stateFactory;
 	private GameObject _spawnPoint;
 	private LevelController _levelManager;
+	private bool _wasHit = false;
+	private bool _godMode = false;
 	#endregion
 
 	#region Non Serialized Properties
@@ -55,7 +58,8 @@ public class Ninja : MonoBehaviour
 		_spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 		_capsuleCollider = gameObject.GetComponent<CapsuleCollider2D>();
 		_collisionController = gameObject.GetComponent<CollisionController>();
-		_gameManager = FindObjectOfType<GameManager>();
+		//_gameManager = FindObjectOfType<GameManager>();
+		
 		_stateFactory = PlayerStateFactory.GetInstance();
 		_spawnPoint = GameObject.FindGameObjectWithTag("Respawn");
 		_levelManager = GameObject.FindObjectOfType<LevelController>();
@@ -64,14 +68,26 @@ public class Ninja : MonoBehaviour
 		CurrentState = _stateFactory.CreatePlayerState(PlayerStateType.Normal);
 		StateChangeDelegate = new PlayerStateChangeHandler(PlayerStateChanged);
 		_collisionController.PlayerIsHit += PlayerLooseLife;
-		_gameManager.PlayerLife = Life;
+		
 		PlayerIsDead += PlayerDies;
 		_levelManager.LevelFinished += LevelFinished;
 	}
 	private void Start()
 	{
+		_godMode = false;
+		_gameManager = GameManager.instance;
+		if (_gameManager.PlayerLife == 0)
+		{
+			_gameManager.PlayerLife = Life;
+		}
+
+		if (_wasHit)
+		{
+			gameObject.transform.position = _spawnPoint.transform.position;
+			_wasHit = false;
+		}
 		
-		gameObject.transform.position = _spawnPoint.transform.position;
+		_gameManager.GetInitialPlayerWallet();
 		
 	}
 	private void Update()
@@ -126,11 +142,16 @@ public class Ninja : MonoBehaviour
 
 	private void PlayerLooseLife(int hitPoint)
 	{
+		_wasHit = true;
+		if (_godMode == true)
+		{
+			hitPoint = 0;
+		}
 		Life -= hitPoint;
 		_gameManager.PlayerGetsHit(hitPoint);
 		if (Life == 0)
 		{
-			PlayerIsDead();
+			PlayerDies();
 			return;
 		}
 
@@ -191,12 +212,11 @@ public class Ninja : MonoBehaviour
 
 	public void PlayerDies()
 	{
-		Destroy(gameObject);
-		PlayerIsDead();
+		_gameManager.GameOver();
 		
 	}
 
-	private void LevelFinished(string name = null)
+	private void LevelFinished(Scene activeScene, bool isDead)
 	{
 		Destroy(gameObject);
 	}

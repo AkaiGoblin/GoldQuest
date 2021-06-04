@@ -51,12 +51,18 @@ TagManager:
   - name: Button
     uniqueID: 2786348737
     locked: 0
-  - name: GoldStack
-    uniqueID: 2260705887
-    locked: 0
   - name: Coin
     uniqueID: 3332101937
     locked: 0
   - name: Player
     uniqueID: 3590278555
+    locked: 0
+  - name: Dragon
+    uniqueID: 2602297133
+    locked: 0
+  - name: GoldStack
+    uniqueID: 2260705887
+    locked: 0
+  - name: Explosion
+    uniqueID: 3057211843
     locked: 0

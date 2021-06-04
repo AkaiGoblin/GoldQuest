@@ -15,17 +15,28 @@ public class LifeController : MonoBehaviour
 	private int _separationDistance;
 	#endregion
 
+	private bool _lifeWasFetched = false;
+
 	private List<GameObject> _hearts = new List<GameObject>();
 	private GameManager _gameManager;
 	private void Awake()
 	{
-		_gameManager = GameObject.FindObjectOfType<GameManager>();
-		_gameManager.LifeChanged += PlayerIsHit;
+		//_gameManager = GameObject.FindObjectOfType<GameManager>();
+		
 		
 	}
 	private void Start()
 	{
-		GetPlayerLife();
+		_gameManager = GameManager.instance;
+		_gameManager.LifeChanged += PlayerIsHit;
+		
+	}
+	private void Update()
+	{
+		if (!_lifeWasFetched)
+		{
+			GetPlayerLife();
+		}
 	}
 
 	private void PlayerIsHit(int currentLife)
@@ -49,6 +60,7 @@ public class LifeController : MonoBehaviour
 	{
 		var numberOfHearts = _gameManager.PlayerLife;
 		CreateHeartImages(numberOfHearts);
+		_lifeWasFetched = true;
 	}
 
 	private void CreateHeartImages(int numberOfHearts)

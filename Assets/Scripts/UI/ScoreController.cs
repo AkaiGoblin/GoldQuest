@@ -13,9 +13,16 @@ public class ScoreController : MonoBehaviour
 
 	private void Awake()
 	{
-		_gameManager = GameObject.FindObjectOfType<GameManager>();
+		//_gameManager = GameObject.FindObjectOfType<GameManager>();
+		
+				
+	}
+	private void Start()
+	{
+		_scoreText = this.GetComponentInChildren<Text>();
+		_gameManager = GameManager.instance;
 		_gameManager.ScoreChanged += ScoreChanged;
-		_scoreText = this.GetComponentInChildren<Text>();		
+		ScoreChanged(_gameManager.PlayerWallet);
 	}
 
 	private void ScoreChanged(int newValue)
@@ -29,6 +36,19 @@ public class ScoreController : MonoBehaviour
 		{
 			formattedValue.Append("0" + newValue);
 		}
+		else
+		{
+			formattedValue.Append(newValue);
+		}
+		if (_scoreText == null)
+		{
+			_scoreText = this.GetComponentInChildren<Text>();
+		}
 		_scoreText.text = $": {formattedValue}";		
+	}
+
+	private void OnDestroy()
+	{
+		_gameManager.ScoreChanged -= ScoreChanged;
 	}
 }

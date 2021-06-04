@@ -8,10 +8,14 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
 	public int PlayerLife { get => _playerLife; set => _playerLife = value; }
+	public int PlayerWallet { get => _playerWallet; set => _playerWallet = value; }
+	public string LastScene { get => _lastScene; set => _lastScene = value; }
 
 	[SerializeField]
 	private int _playerWallet;
 	private int _playerLife;
+	private string _lastScene;
+	private AudioSource _audioSource;
 
 
 	#region Fields
@@ -32,8 +36,31 @@ public class GameManager : MonoBehaviour
 	private void Awake()
 	{
 		ImplementSingleton();
+		_audioSource = GetComponent<AudioSource>();
 	}
 
+	private void Update()
+	{
+		if (!SceneManager.GetActiveScene().name.Equals("GameOver"))
+		{
+			_lastScene = SceneManager.GetActiveScene().name;
+		}
+		if (!_audioSource.isPlaying && 
+			!SceneManager.GetActiveScene().name.Equals("GameOver") &&
+			!SceneManager.GetActiveScene().name.Equals("Start"))
+		{
+			_audioSource.Play();
+		}
+
+		if (SceneManager.GetActiveScene().name.Equals("GameOver"))
+		{
+			_audioSource.Stop();
+		}
+	}
+	public void GetInitialPlayerWallet()
+	{
+		OnScoreChanged();
+	}
 	public void PutMoneyInWallet(int value)
 	{
 		_playerWallet += value;
@@ -46,15 +73,16 @@ public class GameManager : MonoBehaviour
 		OnLifeChanged();
 	}
 
-	public void LevelFinished(string sceneName = null)
+	public void LevelFinished(Scene activeScene, bool isDead)
 	{
-		
-		if (!String.IsNullOrEmpty(sceneName))
+
+		if (isDead)
 		{
 			SceneManager.LoadScene("GameOver");
 			return;
 		}
-		SceneManager.LoadScene(_indexFirstScene++);
+		var sceneIndex = activeScene.buildIndex + 1;		
+		SceneManager.LoadScene(sceneIndex, LoadSceneMode.Single);
 	}
 	private void ImplementSingleton()
 	{
@@ -71,6 +99,11 @@ public class GameManager : MonoBehaviour
 
 	private void OnLifeChanged()
 	{
+		if (_playerLife == 0)
+		{
+			GameOver();
+			return;
+		}
 		if (LifeChanged != null)
 		{
 			LifeChanged(_playerLife);
@@ -85,6 +118,18 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+
+	public void GameRestart()
+	{
+		_playerWallet = 0;
+		SceneManager.LoadScene("Level1");
+
+	}
+
+	public void GameOver()
+	{
+		SceneManager.LoadScene("GameOver");
+	}
 	
 
 }
