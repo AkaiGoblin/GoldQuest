@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Spike
   layers:
   - Default
   - TransparentFX
@@ -12,11 +13,11 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Spike
+  - Lights
+  - Coin
+  - GoldStack
+  - Fireball
   - 
   - 
   - 
@@ -38,6 +39,30 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1685203231
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Environment
+    uniqueID: 1833044609
+    locked: 0
+  - name: Button
+    uniqueID: 2786348737
+    locked: 0
+  - name: Coin
+    uniqueID: 3332101937
+    locked: 0
+  - name: Player
+    uniqueID: 3590278555
+    locked: 0
+  - name: Dragon
+    uniqueID: 2602297133
+    locked: 0
+  - name: GoldStack
+    uniqueID: 2260705887
+    locked: 0
+  - name: Explosion
+    uniqueID: 3057211843
     locked: 0

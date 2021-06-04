@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Enumerations;
+using Assets.Scripts.Factories;
 using UnityEngine;
 
 namespace Assets.Scripts.States
@@ -20,6 +21,7 @@ namespace Assets.Scripts.States
 		protected Collider2D _collider2D;
 		protected Collider2D _crouchCollider2D;
 		protected bool _isRunning = false;
+		protected PlayerStateFactory _stateFactory;
 		public StoppedCrouchingHandler StoppedCrouchingDelegate;
 
 		public PlayerState(
@@ -29,6 +31,10 @@ namespace Assets.Scripts.States
 			Rigidbody2D rigidBody2D,
 			Collider2D collider2D)
 		{
+			if (ninjaPlayer == null)
+			{
+				return;
+			}
 			_ninjaPlayer = ninjaPlayer;
 			_ninjaAnimator = ninjaAnimator;
 			_spriteRenderer = spriteRenderer;
@@ -38,6 +44,8 @@ namespace Assets.Scripts.States
 				x => x.gameObject.name.Equals("CrouchCollider")
 				);
 			StoppedCrouchingDelegate = new StoppedCrouchingHandler(StoppedCrouching);
+			_stateFactory = PlayerStateFactory.GetInstance();
+
 		}
 
 		#region Abstract Methods
@@ -69,12 +77,9 @@ namespace Assets.Scripts.States
 				ChangeColliderType(ColliderTypeEnum.Standing);
 				if (!(_ninjaPlayer.CurrentState is NormalState))
 				{
-					_ninjaPlayer.StateChangeDelegate(new NormalState(
-					_ninjaPlayer,
-					_ninjaAnimator,
-					_spriteRenderer,
-					_rigidBody2D,
-					_collider2D));
+					_ninjaPlayer.StateChangeDelegate(
+						_stateFactory.CreatePlayerState(PlayerStateType.Normal)
+						);
 				}
 				
 
